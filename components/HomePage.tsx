@@ -1,14 +1,16 @@
 import React from 'react';
 import type { Page } from '../App';
-import { COURSES_DATA, HUBS_DATA } from '../constants';
 import { ChevronRightIcon } from './icons/ChevronRightIcon';
+import type { Course, Hub } from '../types';
 
 interface HomePageProps {
   navigate: (page: Page) => void;
+  courses: Course[];
+  hubs: Hub[];
 }
 
-const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
-  const featuredCourse = COURSES_DATA[0];
+const HomePage: React.FC<HomePageProps> = ({ navigate, courses, hubs }) => {
+  const featuredCourse = courses[0];
 
   return (
     <div className="animate-fade-in">
@@ -38,29 +40,31 @@ const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Featured Course Section */}
-          <div className="mb-16">
-             <h2 className="text-3xl font-extrabold text-gray-900 mb-6">Featured Course</h2>
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
-                <div className="p-8">
-                  <h3 className="text-2xl font-bold text-gray-900">{featuredCourse.title}</h3>
-                  <p className="mt-4 text-gray-600">{featuredCourse.description}</p>
-                  <div className="mt-6">
-                     <button
-                      onClick={() => navigate({ name: 'course', props: { courseId: featuredCourse.id } })}
-                      className="inline-flex items-center px-5 py-2.5 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      Start Learning <ChevronRightIcon className="ml-2 -mr-1 h-5 w-5" />
-                    </button>
+          {featuredCourse && (
+            <div className="mb-16">
+               <h2 className="text-3xl font-extrabold text-gray-900 mb-6">Featured Course</h2>
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
+                  <div className="p-8">
+                    <h3 className="text-2xl font-bold text-gray-900">{featuredCourse.title}</h3>
+                    <p className="mt-4 text-gray-600">{featuredCourse.description}</p>
+                    <div className="mt-6">
+                       <button
+                        onClick={() => navigate({ name: 'course', props: { courseId: featuredCourse.id } })}
+                        className="inline-flex items-center px-5 py-2.5 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      >
+                        Start Learning <ChevronRightIcon className="ml-2 -mr-1 h-5 w-5" />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-          </div>
+            </div>
+          )}
           
           {/* Skill Hubs Section */}
           <div>
             <h2 className="text-3xl font-extrabold text-gray-900 mb-6">Practice Hubs</h2>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {HUBS_DATA.map((hub) => (
+              {hubs.map((hub) => (
                 <button
                   key={hub.id}
                   onClick={() => navigate({ name: 'hub', props: { hubId: hub.id } })}

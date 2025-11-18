@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Page } from '../App';
-import { COURSES_DATA, ARTICLES_DATA, HUBS_DATA } from '../constants';
+import type { Course, Article, Hub } from '../types';
 import CourseCard from './CourseCard';
 import ArticleCard from './ArticleCard';
 import { GridViewIcon } from './icons/GridViewIcon';
@@ -9,9 +9,12 @@ import { SearchIcon } from './icons/SearchIcon';
 
 interface DiscoveryPageProps {
   navigate: (page: Page) => void;
+  courses: Course[];
+  hubs: Hub[];
+  articles: Article[];
 }
 
-const DiscoveryPage: React.FC<DiscoveryPageProps> = ({ navigate }) => {
+const DiscoveryPage: React.FC<DiscoveryPageProps> = ({ navigate, courses, hubs, articles }) => {
     const [view, setView] = useState<'grid' | 'list'>('grid');
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedHub, setSelectedHub] = useState<string>('all');
@@ -20,12 +23,12 @@ const DiscoveryPage: React.FC<DiscoveryPageProps> = ({ navigate }) => {
 
     const lowercasedSearchTerm = searchTerm.toLowerCase();
 
-    const filteredCourses = COURSES_DATA
+    const filteredCourses = courses
         .filter(course => { // Hub filter
             if (selectedHub === 'all') {
                 return true;
             }
-            const hub = HUBS_DATA.find(h => h.id === selectedHub);
+            const hub = hubs.find(h => h.id === selectedHub);
             return hub?.courseIds.includes(course.id);
         })
         .filter(course => // Search term filter
@@ -49,8 +52,8 @@ const DiscoveryPage: React.FC<DiscoveryPageProps> = ({ navigate }) => {
         });
 
     const filteredArticles = searchTerm === ''
-        ? ARTICLES_DATA
-        : ARTICLES_DATA.filter(article =>
+        ? articles
+        : articles.filter(article =>
             article.title.toLowerCase().includes(lowercasedSearchTerm) ||
             article.snippet.toLowerCase().includes(lowercasedSearchTerm) ||
             article.tags.some(tag => tag.toLowerCase().includes(lowercasedSearchTerm))
@@ -61,7 +64,7 @@ const DiscoveryPage: React.FC<DiscoveryPageProps> = ({ navigate }) => {
     const hasArticleResults = showArticles && filteredArticles.length > 0;
     const hasResults = hasCourseResults || hasArticleResults;
 
-    const hubsForFilter = [{ id: 'all', title: 'All Courses' }, ...HUBS_DATA];
+    const hubsForFilter = [{ id: 'all', title: 'All Courses' }, ...hubs];
 
     return (
         <div className="bg-gray-50 min-h-screen">

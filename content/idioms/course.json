@@ -1,0 +1,50 @@
+
+{
+    "id": "idioms-for-daily-conversation",
+    "title": "Idioms for Daily Conversation",
+    "description": "Learn and practice common English idioms to understand and participate in natural conversations.",
+    "iconName": "BookOpenIcon",
+    "duration": "3 hours",
+    "difficulty": "Intermediate",
+    "details": "Covers 50+ common idioms",
+    "prerequisites": "Basic understanding of English",
+    "tags": ["reading", "speaking", "vocabulary"],
+    "info": "<h3>Course Info</h3><p>Unlock the colorful, creative side of English by learning the idioms native speakers use every day. This course will help you understand movies, TV shows, and casual chats.</p>",
+    "modules": [
+        {
+            "id": "m1", 
+            "title": "Module 1: Introduction to Idioms", 
+            "lessons": [
+                { 
+                    "id": "l1", 
+                    "title": "What are Idioms?", 
+                    "content": "module1-lesson1.md", 
+                    "quiz": { 
+                        "question": "What does the idiom 'It's raining cats and dogs' mean?", 
+                        "options": [
+                            {"text": "It's raining lightly.", "isCorrect": false}, 
+                            {"text": "It's raining very heavily.", "isCorrect": true}
+                        ], 
+                        "correctFeedback": "That's right! It's a colorful way to say it's raining a lot.", 
+                        "incorrectFeedback": "Not quite. This idiom describes a very strong rain."
+                    } 
+                },
+                { 
+                    "id": "l2", 
+                    "title": "Common Idioms about Feelings", 
+                    "content": "module1-lesson2.md", 
+                    "quiz": { 
+                        "question": "If you feel 'under the weather', how do you feel?", 
+                        "options": [
+                            {"text": "Slightly sick", "isCorrect": true}, 
+                            {"text": "Very happy", "isCorrect": false}, 
+                            {"text": "Nervous", "isCorrect": false}
+                        ], 
+                        "correctFeedback": "Correct! It's a common way to say you're not feeling well.", 
+                        "incorrectFeedback": "Think about what kind of day you'd want to stay inside. It's for when you feel a bit sick."
+                    } 
+                }
+            ]
+        }
+    ]
+}

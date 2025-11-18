@@ -48,11 +48,15 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onCorrect, isLessonCompleted }) =
         {quizData.options.map((option, index) => {
           const isSelected = selectedOption === index;
           let optionClasses = 'border-gray-300';
+          let animationClass = '';
+
           if (isSubmitted) {
             if (option.isCorrect) {
               optionClasses = 'border-green-500 bg-green-50';
+              animationClass = 'animate-pulse-correct';
             } else if (isSelected && !option.isCorrect) {
               optionClasses = 'border-red-500 bg-red-50';
+              animationClass = 'animate-shake-incorrect';
             }
           } else if (isSelected) {
             optionClasses = 'border-indigo-500 bg-indigo-50';
@@ -63,7 +67,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, onCorrect, isLessonCompleted }) =
               key={index}
               onClick={() => handleOptionSelect(index)}
               disabled={isSubmitted}
-              className={`w-full text-left p-4 border rounded-lg flex items-center transition-all duration-200 ${optionClasses} disabled:cursor-not-allowed`}
+              className={`w-full text-left p-4 border rounded-lg flex items-center transition-all duration-200 ${optionClasses} ${animationClass} disabled:cursor-not-allowed`}
             >
               <span className={`flex-1 text-gray-800 ${isSelected && !isSubmitted ? 'font-semibold' : ''}`}>
                 {option.text}

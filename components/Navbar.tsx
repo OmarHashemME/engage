@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import type { Page } from '../App';
-import { HUBS_DATA } from '../constants';
+import type { Hub } from '../types';
 import { MenuIcon } from './icons/MenuIcon';
 import { XIcon } from './icons/XIcon';
 import { ChevronDownIcon } from './icons/ChevronDownIcon';
@@ -9,9 +9,10 @@ import { UserIcon } from './icons/UserIcon';
 
 interface NavbarProps {
   navigate: (page: Page) => void;
+  hubs: Hub[];
 }
 
-const Navbar: React.FC<NavbarProps> = ({ navigate }) => {
+const Navbar: React.FC<NavbarProps> = ({ navigate, hubs }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSkillsOpen, setIsSkillsOpen] = useState(false);
   const skillsMenuRef = useRef<HTMLDivElement>(null);
@@ -60,7 +61,7 @@ const Navbar: React.FC<NavbarProps> = ({ navigate }) => {
               {isSkillsOpen && (
                 <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 animate-fade-in" style={{animationDuration: '150ms'}}>
                   <div className="py-1">
-                    {HUBS_DATA.map(hub => (
+                    {hubs.map(hub => (
                       <button
                         key={hub.id}
                         onClick={() => handleNavigate({ name: 'hub', props: { hubId: hub.id } })}
@@ -112,7 +113,7 @@ const Navbar: React.FC<NavbarProps> = ({ navigate }) => {
             <div className="border-t border-gray-200 pt-3 mt-3">
                  <h3 className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Skills</h3>
                  <div className="mt-2 space-y-1">
-                    {HUBS_DATA.map(hub => (
+                    {hubs.map(hub => (
                         <MobileNavLink key={hub.id} onClick={() => handleNavigate({ name: 'hub', props: { hubId: hub.id } })}>
                           <hub.icon className="h-5 w-5 mr-3" />
                           {hub.title}

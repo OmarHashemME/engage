@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
-import type { LearningPath } from '../types';
+import type { LearningPath, Course } from '../types';
 import type { Page } from '../App';
-import { COURSES_DATA } from '../constants';
 import CourseCard from './CourseCard';
 import { GridViewIcon } from './icons/GridViewIcon';
 import { ListViewIcon } from './icons/ListViewIcon';
 
 interface LearningPathDetailPageProps {
   path: LearningPath;
+  courses: Course[];
   navigate: (page: Page) => void;
 }
 
-const LearningPathDetailPage: React.FC<LearningPathDetailPageProps> = ({ path, navigate }) => {
+const LearningPathDetailPage: React.FC<LearningPathDetailPageProps> = ({ path, courses: pathCourses, navigate }) => {
   const [view, setView] = useState<'grid' | 'list'>('grid');
-  const pathCourses = COURSES_DATA.filter(course => path.courseIds.includes(course.id));
 
   return (
     <div className="bg-white min-h-screen animate-fade-in">

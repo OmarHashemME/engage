@@ -1,0 +1,50 @@
+
+{
+    "id": "phrasal-verbs-in-use",
+    "title": "Phrasal Verbs in Use",
+    "description": "Master common phrasal verbs to sound more like a native speaker.",
+    "iconName": "AcademicCapIcon",
+    "duration": "4 hours",
+    "difficulty": "Intermediate",
+    "details": "Focus on separable/inseparable verbs",
+    "prerequisites": "Builds on: Vocabulary Essentials",
+    "tags": ["vocabulary", "speaking", "grammar"],
+    "info": "<h3>Course Info</h3><p>Dive deep into one of the trickiest parts of English. This course breaks down phrasal verbs into understandable categories and provides plenty of practice.</p>",
+    "modules": [
+        {
+            "id": "m1", 
+            "title": "Module 1: Understanding Phrasal Verbs", 
+            "lessons": [
+                { 
+                    "id": "l1", 
+                    "title": "What is a Phrasal Verb?", 
+                    "content": "module1-lesson1.md", 
+                    "quiz": { 
+                        "question": "A phrasal verb combines a verb with a...?", 
+                        "options": [
+                            {"text": "Noun or Adjective", "isCorrect": false}, 
+                            {"text": "Preposition or Adverb", "isCorrect": true}
+                        ], 
+                        "correctFeedback": "Exactly! It's a verb plus a particle like 'up', 'down', 'in', or 'out'.", 
+                        "incorrectFeedback": "That's not it. A phrasal verb uses a particle (a preposition or adverb) to change the verb's meaning."
+                    } 
+                },
+                { 
+                    "id": "l2", 
+                    "title": "Separable vs. Inseparable", 
+                    "content": "module1-lesson2.md", 
+                    "quiz": { 
+                        "question": "Which sentence is grammatically correct?", 
+                        "options": [
+                            {"text": "I will look your dog after.", "isCorrect": false}, 
+                            {"text": "I turned down it.", "isCorrect": false}, 
+                            {"text": "She turned it down.", "isCorrect": true}
+                        ], 
+                        "correctFeedback": "Perfect! With separable phrasal verbs, the pronoun must go in the middle.", 
+                        "incorrectFeedback": "Take another look at the rules for pronouns with separable phrasal verbs."
+                    } 
+                }
+            ]
+        }
+    ]
+}

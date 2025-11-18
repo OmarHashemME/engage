@@ -13,12 +13,23 @@
           extend: {
             animation: {
               'fade-in': 'fadeIn 0.5s ease-in-out',
+              'shake-incorrect': 'shakeIncorrect 0.4s ease-in-out',
+              'pulse-correct': 'pulseCorrect 0.4s ease-in-out',
             },
             keyframes: {
               fadeIn: {
                 '0%': { opacity: '0' },
                 '100%': { opacity: '1' },
               },
+              shakeIncorrect: {
+                '0%, 100%': { transform: 'translateX(0)' },
+                '25%': { transform: 'translateX(-6px)' },
+                '75%': { transform: 'translateX(6px)' },
+              },
+              pulseCorrect: {
+                '0%, 100%': { transform: 'scale(1)' },
+                '50%': { transform: 'scale(1.03)' },
+              }
             }
           }
         }

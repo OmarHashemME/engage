@@ -1,15 +1,16 @@
 import React from 'react';
 import type { Page } from '../App';
-import { HUBS_DATA } from '../constants';
+import type { Hub } from '../types';
 import { TwitterIcon } from './icons/TwitterIcon';
 import { FacebookIcon } from './icons/FacebookIcon';
 import { GitHubIcon } from './icons/GitHubIcon';
 
 interface FooterProps {
   navigate: (page: Page) => void;
+  hubs: Hub[];
 }
 
-const Footer: React.FC<FooterProps> = ({ navigate }) => {
+const Footer: React.FC<FooterProps> = ({ navigate, hubs }) => {
   const handleNavigate = (page: Page) => {
     navigate(page);
   };
@@ -51,7 +52,7 @@ const Footer: React.FC<FooterProps> = ({ navigate }) => {
           <div>
             <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Skills</h3>
             <ul className="mt-4 space-y-3">
-              {HUBS_DATA.slice(0, 3).map(hub => (
+              {hubs.slice(0, 3).map(hub => (
                  <li key={hub.id}><FooterLink onClick={() => handleNavigate({ name: 'hub', props: { hubId: hub.id } })}>{hub.title}</FooterLink></li>
               ))}
             </ul>
@@ -61,7 +62,7 @@ const Footer: React.FC<FooterProps> = ({ navigate }) => {
            <div className="col-start-3 md:col-start-auto">
             <h3 className="text-sm font-semibold text-slate-800 tracking-wider uppercase hidden md:block">.</h3>
             <ul className="mt-4 space-y-3">
-              {HUBS_DATA.slice(3).map(hub => (
+              {hubs.slice(3).map(hub => (
                  <li key={hub.id}><FooterLink onClick={() => handleNavigate({ name: 'hub', props: { hubId: hub.id } })}>{hub.title}</FooterLink></li>
               ))}
             </ul>

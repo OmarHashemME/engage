@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import type { Hub } from '../types';
+import type { Hub, Course } from '../types';
 import type { Page } from '../App';
-import { COURSES_DATA } from '../constants';
 import CourseCard from './CourseCard';
 import { GridViewIcon } from './icons/GridViewIcon';
 import { ListViewIcon } from './icons/ListViewIcon';
@@ -9,12 +8,12 @@ import { ListViewIcon } from './icons/ListViewIcon';
 
 interface HubPageProps {
   hub: Hub;
+  courses: Course[];
   navigate: (page: Page) => void;
 }
 
-const HubPage: React.FC<HubPageProps> = ({ hub, navigate }) => {
+const HubPage: React.FC<HubPageProps> = ({ hub, courses: hubCourses, navigate }) => {
   const [view, setView] = useState<'grid' | 'list'>('grid');
-  const hubCourses = COURSES_DATA.filter(course => hub.courseIds.includes(course.id));
 
   return (
     <div className="bg-gray-50 min-h-screen animate-fade-in">

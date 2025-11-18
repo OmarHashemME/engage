@@ -1,15 +1,15 @@
 import React from 'react';
 import type { Page } from '../App';
-import { USER_DATA, USER_COURSES_IDS, COURSES_DATA } from '../constants';
-import { BookOpenIcon } from './icons/BookOpenIcon';
+import { USER_DATA } from '../constants';
 import { UserIcon } from './icons/UserIcon';
+import type { Course } from '../types';
 
 interface ProfilePageProps {
   navigate: (page: Page) => void;
+  userCourses: Course[];
 }
 
-const ProfilePage: React.FC<ProfilePageProps> = ({ navigate }) => {
-  const userCourses = COURSES_DATA.filter(course => USER_COURSES_IDS.includes(course.id));
+const ProfilePage: React.FC<ProfilePageProps> = ({ navigate, userCourses }) => {
 
   return (
     <div className="bg-white min-h-screen animate-fade-in">

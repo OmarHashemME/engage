@@ -1,12 +1,13 @@
 import React from 'react';
 import type { Page } from '../App';
-import { LEARNING_PATHS_DATA } from '../constants';
+import type { LearningPath } from '../types';
 
 interface LearningPathsPageProps {
   navigate: (page: Page) => void;
+  learningPaths: LearningPath[];
 }
 
-const LearningPathsPage: React.FC<LearningPathsPageProps> = ({ navigate }) => {
+const LearningPathsPage: React.FC<LearningPathsPageProps> = ({ navigate, learningPaths }) => {
   return (
     <div className="bg-white min-h-screen animate-fade-in">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -20,7 +21,7 @@ const LearningPathsPage: React.FC<LearningPathsPageProps> = ({ navigate }) => {
         </div>
 
         <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {LEARNING_PATHS_DATA.map((path) => {
+          {learningPaths.map((path) => {
              return (
               <div key={path.id} className="flex flex-col rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
                 <div className="flex-1 bg-white p-6 flex flex-col justify-between">

@@ -1,0 +1,51 @@
+
+{
+    "id": "vocabulary-essentials",
+    "title": "Vocabulary Essentials",
+    "description": "Build a strong foundation with essential English vocabulary and learning techniques.",
+    "iconName": "LightbulbIcon",
+    "duration": "3 hours",
+    "difficulty": "Beginner",
+    "details": "4 interactive exercises",
+    "prerequisites": "No prerequisites",
+    "tags": ["vocabulary"],
+    "info": "<h3>Course Info</h3><p>This course provides the fundamental skills you need to expand your vocabulary effectively. Learn about context clues, prefixes, and suffixes to unlock the meaning of new words.</p>",
+    "modules": [
+        {
+            "id": "m1", 
+            "title": "Module 1: Core Concepts", 
+            "lessons": [
+                { 
+                    "id": "l1", 
+                    "title": "The Power of Context", 
+                    "content": "module1-lesson1.md", 
+                    "quiz": { 
+                        "question": "What is the primary benefit of using context clues?", 
+                        "options": [
+                            {"text": "It's the only way to learn new words.", "isCorrect": false}, 
+                            {"text": "It helps you guess meaning without a dictionary.", "isCorrect": true}, 
+                            {"text": "It makes reading slower.", "isCorrect": false}
+                        ], 
+                        "correctFeedback": "Correct! Context helps you make educated guesses and read more smoothly.", 
+                        "incorrectFeedback": "Not quite. While dictionaries are useful, context is a faster, more natural way to learn."
+                    } 
+                },
+                { 
+                    "id": "l2", 
+                    "title": "Unlocking Words with Prefixes", 
+                    "content": "module1-lesson2.md", 
+                    "quiz": { 
+                        "question": "What does the prefix 're-' mean?", 
+                        "options": [
+                            {"text": "Before", "isCorrect": false}, 
+                            {"text": "Not", "isCorrect": false}, 
+                            {"text": "Again", "isCorrect": true}
+                        ], 
+                        "correctFeedback": "That's right! 'Re-' means to do something again, like in 'redo' or 'replay'.", 
+                        "incorrectFeedback": "Try again. Think about the word 'redo'."
+                    } 
+                }
+            ]
+        }
+    ]
+}

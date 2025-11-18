@@ -13,8 +13,6 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, view, navigate }) => {
     navigate({ name: 'course', props: { courseId: course.id } });
   };
 
-  const IconComponent = course.icon;
-
   if (view === 'grid') {
     return (
       <button 
@@ -23,8 +21,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, view, navigate }) => {
         aria-label={`Start course: ${course.title}`}
       >
         <div className="p-5 flex items-start space-x-4">
-          <div className="flex-shrink-0">
-            <IconComponent className="w-12 h-12" aria-hidden="true" />
+          <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-gray-100 rounded-lg">
+            <course.icon className="w-8 h-8 text-indigo-600" aria-hidden="true" />
           </div>
           <div className="flex-1 min-w-0">
             <h3 className="font-bold text-gray-900 truncate">{course.title}</h3>
@@ -48,8 +46,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, view, navigate }) => {
       className="text-left w-full bg-white p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-lg transition-shadow duration-300 flex items-center space-x-4"
       aria-label={`Start course: ${course.title}`}
     >
-      <div className="flex-shrink-0">
-        <IconComponent className="w-10 h-10" aria-hidden="true" />
+      <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-gray-100 rounded-md">
+        <course.icon className="w-6 h-6 text-indigo-600" aria-hidden="true" />
       </div>
       <div className="flex-1 min-w-0">
         <h3 className="font-bold text-gray-900 truncate">{course.title}</h3>

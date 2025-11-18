@@ -32,21 +32,25 @@ export interface Course {
   id:string;
   title: string;
   description: string;
-  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  iconName: string; // Changed from icon component to string name
+  icon: React.FC<React.SVGProps<SVGSVGElement>>; // Keep this for the final component
   duration: string;
   difficulty: CourseDifficulty;
   details: string;
   prerequisites: string;
-  // Retaining these for the detailed CourseView page
   modules: Module[];
   info: string;
+  // FIX: Add optional tags property to course type. This property exists in the source JSON
+  // data and is used in data-loader.ts for creating skill hubs.
+  tags?: string[];
 }
 
 export interface Hub {
   id: string;
   title: string;
   description: string;
-  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  iconName: string; // Changed from icon component to string name
+  icon: React.FC<React.SVGProps<SVGSVGElement>>; // Keep this for the final component
   courseIds: string[];
 }
 
