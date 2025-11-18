@@ -1,0 +1,5 @@
+{
+  "name": "Kaggle-Style English Course Platform",
+  "description": "An interactive web application for learning English, inspired by Kaggle. Features a homepage, course catalog, six skill hubs (listening, speaking, etc.), and structured courses with tabbed lessons for tutorials and interactive quizzes.",
+  "requestFramePermissions": []
+}
