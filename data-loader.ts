@@ -1,3 +1,5 @@
+// FIX: Import React types to resolve namespace error for React.FC and React.SVGProps.
+import type * as React from 'react';
 import type { Course, Hub, LearningPath, Module, Lesson, Article } from './types';
 import * as Icons from './components/icons';
 import { ARTICLES_DATA } from './constants/articles';
@@ -34,16 +36,25 @@ export async function loadAllData(): Promise<AllData> {
     // 1. Fetch the manifest of all course directories
     const courseIds = await fetchJSON<string[]>('/content/manifest.json');
 
-    // 2. Fetch the course.json for each course in parallel
+    // 2. Fetch the course.json for each course, gracefully handling individual failures
     const coursePromises = courseIds.map(id => fetchJSON<any>(`/content/${id}/course.json`));
-    const rawCoursesData = await Promise.all(coursePromises);
+    const courseResults = await Promise.allSettled(coursePromises);
+
+    const successfulCoursesData: any[] = [];
+    courseResults.forEach((result, index) => {
+        if (result.status === 'fulfilled') {
+            successfulCoursesData.push(result.value);
+        } else {
+            console.error(`Failed to load course config for '${courseIds[index]}':`, result.reason);
+        }
+    });
     
-    // 3. Process the raw course data into the final Course[] structure
-    const courses: Course[] = rawCoursesData.map(courseData => {
-        // Resolve relative lesson content paths to absolute paths
-        const processedModules: Module[] = courseData.modules.map((module: any) => ({
+    // 3. Process the successful course data into the final Course[] structure with safety checks
+    const courses: Course[] = successfulCoursesData.map(courseData => {
+        // Safely process modules and lessons, defaulting to empty arrays if missing
+        const processedModules: Module[] = (Array.isArray(courseData.modules) ? courseData.modules : []).map((module: any) => ({
             ...module,
-            lessons: module.lessons.map((lesson: any) => ({
+            lessons: (Array.isArray(module.lessons) ? module.lessons : []).map((lesson: any) => ({
                 ...lesson,
                 content: `/content/${courseData.id}/${lesson.content}`,
             })),

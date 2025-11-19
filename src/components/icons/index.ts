@@ -23,3 +23,4 @@ export * from './DocumentTextIcon';
 export * from './ChevronDoubleLeftIcon';
 export * from './SpeakerWaveIcon';
 export * from './StopIcon';
+export * from './LockClosedIcon';

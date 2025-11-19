@@ -4,6 +4,7 @@ import type { Page } from '../App';
 import CourseCard from './CourseCard';
 import { GridViewIcon } from './icons/GridViewIcon';
 import { ListViewIcon } from './icons/ListViewIcon';
+import PronunciationGuide from './PronunciationGuide';
 
 
 interface HubPageProps {
@@ -33,6 +34,8 @@ const HubPage: React.FC<HubPageProps> = ({ hub, courses: hubCourses, navigate })
               </div>
             </div>
           </header>
+
+          {hub.id === 'speaking' && <PronunciationGuide />}
 
           <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-gray-900">Relevant Courses</h2>

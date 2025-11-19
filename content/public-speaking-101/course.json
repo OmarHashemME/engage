@@ -1,0 +1,37 @@
+
+{
+    "id": "public-speaking-101",
+    "title": "Public Speaking 101",
+    "description": "Gain the confidence to speak in front of others with clear pronunciation and strong delivery.",
+    "iconName": "MicrophoneIcon",
+    "duration": "4 hours",
+    "level": "B2",
+    "details": "Confidence & Delivery",
+    "prerequisites": "Intermediate English",
+    "tags": ["speaking"],
+    "info": "<h3>Course Info</h3><p>Speaking isn't just about grammar; it's about delivery. Learn how to project your voice, manage nervousness, and structure your speech for maximum impact.</p>",
+    "modules": [
+        {
+            "id": "m1",
+            "title": "Module 1: The Basics",
+            "lessons": [
+                {
+                    "id": "l1",
+                    "title": "Overcoming Stage Fright",
+                    "content": "module1-lesson1.md",
+                    "activityType": "speaking",
+                    "quiz": {
+                        "question": "What is a physical way to reduce anxiety before speaking?",
+                        "options": [
+                            {"text": "Drinking a lot of coffee", "isCorrect": false},
+                            {"text": "Deep breathing exercises", "isCorrect": true},
+                            {"text": "Speaking as fast as possible", "isCorrect": false}
+                        ],
+                        "correctFeedback": "Yes! Deep breathing calms your nervous system.",
+                        "incorrectFeedback": "Caffeine might make you more jittery, and speaking fast shows nervousness."
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -5,7 +5,7 @@
     "description": "Master common phrasal verbs to sound more like a native speaker.",
     "iconName": "AcademicCapIcon",
     "duration": "4 hours",
-    "difficulty": "Intermediate",
+    "level": "B1",
     "details": "Focus on separable/inseparable verbs",
     "prerequisites": "Builds on: Vocabulary Essentials",
     "tags": ["vocabulary", "speaking", "grammar"],
@@ -18,7 +18,8 @@
                 { 
                     "id": "l1", 
                     "title": "What is a Phrasal Verb?", 
-                    "content": "module1-lesson1.md", 
+                    "content": "module1-lesson1.md",
+                    "activityType": "speaking",
                     "quiz": { 
                         "question": "A phrasal verb combines a verb with a...?", 
                         "options": [
@@ -32,7 +33,8 @@
                 { 
                     "id": "l2", 
                     "title": "Separable vs. Inseparable", 
-                    "content": "module1-lesson2.md", 
+                    "content": "module1-lesson2.md",
+                    "activityType": "speaking",
                     "quiz": { 
                         "question": "Which sentence is grammatically correct?", 
                         "options": [

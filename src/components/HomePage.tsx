@@ -1,7 +1,10 @@
+
 import React from 'react';
 import type { Page } from '../App';
 import { ChevronRightIcon } from './icons/ChevronRightIcon';
 import type { Course, Hub } from '../types';
+import { USER_DATA } from '../constants';
+import { levelService } from '../services/levelService';
 
 interface HomePageProps {
   navigate: (page: Page) => void;
@@ -10,18 +13,27 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ navigate, courses, hubs }) => {
-  const featuredCourse = courses[0];
+  
+  // Logic: Find a featured course that matches the user's current level or the next level up.
+  const featuredCourse = courses.find(c => {
+      const cLevel = levelService.resolveCourseLevel(c);
+      const cIndex = levelService.getLevelIndex(cLevel);
+      const uIndex = levelService.getLevelIndex(USER_DATA.generalLevel);
+      
+      // Perfect match or "Challenge" (one level up)
+      return cIndex === uIndex || cIndex === uIndex + 1;
+  }) || courses[0]; // Fallback to first available if no match
 
   return (
     <div className="animate-fade-in">
       <div className="bg-white">
         <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+          <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
             <span className="block">Unlock Your English Potential</span>
             <span className="block text-indigo-600">Start learning today.</span>
           </h1>
           <p className="mt-6 max-w-lg mx-auto text-xl text-gray-500">
-            Join our community and master English with interactive courses and skill-based practice hubs.
+            Join our community and master English with interactive courses tailored to your <strong>{USER_DATA.generalLevel}</strong> proficiency level.
           </p>
           <div className="mt-8 flex justify-center">
             <div className="inline-flex rounded-md shadow">
@@ -42,9 +54,18 @@ const HomePage: React.FC<HomePageProps> = ({ navigate, courses, hubs }) => {
           {/* Featured Course Section */}
           {featuredCourse && (
             <div className="mb-16">
-               <h2 className="text-3xl font-extrabold text-gray-900 mb-6">Featured Course</h2>
-                <div className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
-                  <div className="p-8">
+               <div className="flex items-center mb-6">
+                   <h2 className="text-3xl font-extrabold text-gray-900 mr-4">Recommended for You</h2>
+                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                       Based on Level {USER_DATA.generalLevel}
+                   </span>
+               </div>
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-300 flex flex-col md:flex-row">
+                  <div className="p-8 flex-1">
+                    <div className="flex items-center mb-2">
+                         <span className="text-xs font-bold tracking-wider uppercase text-indigo-600 mr-2">Featured Course</span>
+                         <span className="px-2 py-1 text-xs font-bold rounded bg-gray-100 text-gray-600">{levelService.resolveCourseLevel(featuredCourse)}</span>
+                    </div>
                     <h3 className="text-2xl font-bold text-gray-900">{featuredCourse.title}</h3>
                     <p className="mt-4 text-gray-600">{featuredCourse.description}</p>
                     <div className="mt-6">
@@ -55,6 +76,9 @@ const HomePage: React.FC<HomePageProps> = ({ navigate, courses, hubs }) => {
                         Start Learning <ChevronRightIcon className="ml-2 -mr-1 h-5 w-5" />
                       </button>
                     </div>
+                  </div>
+                  <div className="bg-indigo-50 p-8 flex items-center justify-center md:w-1/3 border-l border-indigo-100">
+                      <featuredCourse.icon className="h-32 w-32 text-indigo-300" />
                   </div>
                 </div>
             </div>

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import type { Page } from '../App';
 import type { Course, Article, Hub } from '../types';
@@ -6,6 +7,8 @@ import ArticleCard from './ArticleCard';
 import { GridViewIcon } from './icons/GridViewIcon';
 import { ListViewIcon } from './icons/ListViewIcon';
 import { SearchIcon } from './icons/SearchIcon';
+import { levelService } from '../services/levelService';
+import { USER_DATA } from '../constants';
 
 interface DiscoveryPageProps {
   navigate: (page: Page) => void;
@@ -15,13 +18,15 @@ interface DiscoveryPageProps {
   historyKey?: number;
 }
 
+const LEVELS = ['All', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+
 const DiscoveryPage: React.FC<DiscoveryPageProps> = ({ navigate, courses, hubs, articles, historyKey }) => {
     const [view, setView] = useState<'grid' | 'list'>('grid');
     
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedHub, setSelectedHub] = useState<string>('all');
     const [duration, setDuration] = useState('all');
-    const [difficulty, setDifficulty] = useState('all');
+    const [level, setLevel] = useState<string>('all');
 
     // Sync state from URL on mount and when historyKey changes (back/forward button)
     useEffect(() => {
@@ -29,7 +34,7 @@ const DiscoveryPage: React.FC<DiscoveryPageProps> = ({ navigate, courses, hubs, 
         setSearchTerm(params.get('q') || '');
         setSelectedHub(params.get('hub') || 'all');
         setDuration(params.get('duration') || 'all');
-        setDifficulty(params.get('difficulty') || 'all');
+        setLevel(params.get('level') || 'all');
     }, [historyKey]);
 
     const updateUrl = (key: string, value: string) => {
@@ -67,10 +72,10 @@ const DiscoveryPage: React.FC<DiscoveryPageProps> = ({ navigate, courses, hubs, 
         updateUrl('duration', value);
     };
 
-    const handleDifficultyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleLevelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const value = e.target.value;
-        setDifficulty(value);
-        updateUrl('difficulty', value);
+        setLevel(value);
+        updateUrl('level', value);
     };
 
     const lowercasedSearchTerm = searchTerm.toLowerCase();
@@ -88,9 +93,9 @@ const DiscoveryPage: React.FC<DiscoveryPageProps> = ({ navigate, courses, hubs, 
             course.title.toLowerCase().includes(lowercasedSearchTerm) ||
             course.description.toLowerCase().includes(lowercasedSearchTerm)
         )
-        .filter(course => { // Difficulty filter
-            if (difficulty === 'all') return true;
-            return course.difficulty === difficulty;
+        .filter(course => { // Level filter
+            if (level === 'all') return true;
+            return course.level === level;
         })
         .filter(course => { // Duration filter
             if (duration === 'all') return true;
@@ -111,7 +116,7 @@ const DiscoveryPage: React.FC<DiscoveryPageProps> = ({ navigate, courses, hubs, 
             article.tags.some(tag => tag.toLowerCase().includes(lowercasedSearchTerm))
         );
 
-    const showArticles = selectedHub === 'all' && duration === 'all' && difficulty === 'all';
+    const showArticles = selectedHub === 'all' && duration === 'all' && level === 'all';
     const hasCourseResults = filteredCourses.length > 0;
     const hasArticleResults = showArticles && filteredArticles.length > 0;
     const hasResults = hasCourseResults || hasArticleResults;
@@ -127,61 +132,73 @@ const DiscoveryPage: React.FC<DiscoveryPageProps> = ({ navigate, courses, hubs, 
                             Discover
                         </h1>
                         <p className="mt-4 max-w-3xl text-lg text-gray-500">
-                           Explore courses and articles to expand your skills. Use the search bar and filters to find specific topics.
+                           Explore courses and articles to expand your skills. Use the search bar and filters to find specific topics suitable for your level ({USER_DATA.generalLevel}).
                         </p>
                     </div>
-                    <div className="mt-6 flex flex-col md:flex-row md:items-center gap-4">
+                    <div className="mt-6 flex flex-col lg:flex-row lg:items-end gap-6">
                         <div className="relative flex-grow">
+                            <label htmlFor="search" className="sr-only">Search</label>
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <SearchIcon className="h-5 w-5 text-gray-400" />
                             </div>
                             <input
+                                id="search"
                                 type="text"
                                 placeholder="Search courses and articles..."
                                 value={searchTerm}
                                 onChange={handleSearchChange}
                                 className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                aria-label="Search courses and articles"
                             />
                         </div>
-                        <div className="flex items-center gap-2 flex-shrink-0">
-                             <div>
-                                <label htmlFor="duration-filter" className="sr-only">Filter by duration</label>
-                                <select id="duration-filter" value={duration} onChange={handleDurationChange} className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        
+                        <div className="flex flex-col sm:flex-row gap-4 items-center">
+                             {/* Duration Filter */}
+                             <div className="w-full sm:w-40">
+                                <label htmlFor="duration-filter" className="block text-xs font-medium text-gray-500 mb-1">Duration</label>
+                                <select id="duration-filter" value={duration} onChange={handleDurationChange} className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm py-2">
                                     <option value="all">Any Duration</option>
                                     <option value="short">Short (&lt;4h)</option>
                                     <option value="medium">Medium (4-5h)</option>
                                     <option value="long">Long (&gt;5h)</option>
                                 </select>
                             </div>
-                             <div>
-                                <label htmlFor="difficulty-filter" className="sr-only">Filter by difficulty</label>
-                                <select id="difficulty-filter" value={difficulty} onChange={handleDifficultyChange} className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option value="all">Any Difficulty</option>
-                                    <option value="Beginner">Beginner</option>
-                                    <option value="Intermediate">Intermediate</option>
-                                    <option value="Advanced">Advanced</option>
-                                    <option value="All Levels">All Levels</option>
+
+                            {/* Level Filter */}
+                            <div className="w-full sm:w-48">
+                                <label htmlFor="level-filter" className="block text-xs font-medium text-gray-500 mb-1">Level</label>
+                                <select 
+                                    id="level-filter" 
+                                    value={level} 
+                                    onChange={handleLevelChange} 
+                                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm py-2"
+                                >
+                                    <option value="all">All Levels</option>
+                                    <option value="A1">A1 - Beginner</option>
+                                    <option value="A2">A2 - Elementary</option>
+                                    <option value="B1">B1 - Intermediate</option>
+                                    <option value="B2">B2 - Upper Intermediate</option>
+                                    <option value="C1">C1 - Advanced</option>
+                                    <option value="C2">C2 - Mastery</option>
                                 </select>
                             </div>
-                        </div>
-                        <div className="flex items-center space-x-1 border border-gray-300 rounded-md p-1 bg-white self-end md:self-center">
-                            <button
-                                onClick={() => setView('list')}
-                                className={`p-1.5 rounded-md ${view === 'list' ? 'bg-gray-200 text-gray-800' : 'text-gray-500 hover:bg-gray-100'}`}
-                                aria-label="List view"
-                                data-testid="list-view-button"
-                            >
-                                <ListViewIcon className="h-5 w-5" />
-                            </button>
-                            <button
-                                onClick={() => setView('grid')}
-                                className={`p-1.5 rounded-md ${view === 'grid' ? 'bg-gray-200 text-gray-800' : 'text-gray-500 hover:bg-gray-100'}`}
-                                aria-label="Grid view"
-                                data-testid="grid-view-button"
-                            >
-                                <GridViewIcon className="h-5 w-5" />
-                            </button>
+
+                            {/* View Toggle */}
+                            <div className="flex items-center space-x-1 border border-gray-300 rounded-md p-1 bg-white h-[38px] self-end">
+                                <button
+                                    onClick={() => setView('list')}
+                                    className={`p-1.5 rounded-md ${view === 'list' ? 'bg-gray-200 text-gray-800' : 'text-gray-500 hover:bg-gray-100'}`}
+                                    aria-label="List view"
+                                >
+                                    <ListViewIcon className="h-5 w-5" />
+                                </button>
+                                <button
+                                    onClick={() => setView('grid')}
+                                    className={`p-1.5 rounded-md ${view === 'grid' ? 'bg-gray-200 text-gray-800' : 'text-gray-500 hover:bg-gray-100'}`}
+                                    aria-label="Grid view"
+                                >
+                                    <GridViewIcon className="h-5 w-5" />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </header>
@@ -223,7 +240,13 @@ const DiscoveryPage: React.FC<DiscoveryPageProps> = ({ navigate, courses, hubs, 
                                         : "flex flex-col space-y-4"
                                     }>
                                         {filteredCourses.map(course => (
-                                            <CourseCard key={course.id} course={course} view={view} navigate={navigate} />
+                                            <CourseCard 
+                                                key={course.id} 
+                                                course={course} 
+                                                view={view} 
+                                                navigate={navigate}
+                                                isLocked={levelService.isLocked(course, levelService.getEffectiveLevel(USER_DATA))}
+                                            />
                                         ))}
                                     </div>
                                 </section>

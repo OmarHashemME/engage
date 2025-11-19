@@ -1,0 +1,36 @@
+
+{
+    "id": "academic-vocabulary",
+    "title": "Academic Vocabulary",
+    "description": "Prepare for university or professional environments by mastering formal English vocabulary.",
+    "iconName": "LightbulbIcon",
+    "duration": "3.5 hours",
+    "level": "C1",
+    "details": "Formal Transition Words",
+    "prerequisites": "Intermediate Vocabulary",
+    "tags": ["vocabulary", "writing"],
+    "info": "<h3>Course Info</h3><p>Academic English requires a specific set of vocabulary. This course focuses on transition words and formal alternatives to common phrasal verbs to elevate your writing and speaking.</p>",
+    "modules": [
+        {
+            "id": "m1",
+            "title": "Module 1: Cohesion",
+            "lessons": [
+                {
+                    "id": "l1",
+                    "title": "Formal Transition Words",
+                    "content": "module1-lesson1.md",
+                    "quiz": {
+                        "question": "Which is a formal alternative to 'But'?",
+                        "options": [
+                            {"text": "However", "isCorrect": true},
+                            {"text": "And", "isCorrect": false},
+                            {"text": "So", "isCorrect": false}
+                        ],
+                        "correctFeedback": "Correct! 'However' is a standard formal transition for contrast.",
+                        "incorrectFeedback": "'And' adds information, and 'So' shows cause/effect (informally)."
+                    }
+                }
+            ]
+        }
+    ]
+}

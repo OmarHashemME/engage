@@ -1,0 +1,36 @@
+
+{
+    "id": "mastering-reading-comprehension",
+    "title": "Mastering Reading Comprehension",
+    "description": "Learn strategies to read faster and understand more, from news articles to academic texts.",
+    "iconName": "BookOpenIcon",
+    "duration": "2 hours",
+    "level": "B1",
+    "details": "Skimming & Scanning techniques",
+    "prerequisites": "Basic reading skills",
+    "tags": ["reading"],
+    "info": "<h3>Course Info</h3><p>Reading isn't just about recognizing words; it's about efficient processing. This course covers essential strategies like skimming for main ideas and scanning for specific details.</p>",
+    "modules": [
+        {
+            "id": "m1",
+            "title": "Module 1: Speed Strategies",
+            "lessons": [
+                {
+                    "id": "l1",
+                    "title": "Skimming vs. Scanning",
+                    "content": "module1-lesson1.md",
+                    "quiz": {
+                        "question": "When scanning a text, what are you looking for?",
+                        "options": [
+                            {"text": "The general main idea", "isCorrect": false},
+                            {"text": "Specific details or keywords", "isCorrect": true},
+                            {"text": "Grammar mistakes", "isCorrect": false}
+                        ],
+                        "correctFeedback": "Correct! Scanning is like using a search function with your eyes to find specific data.",
+                        "incorrectFeedback": "Not quite. Finding the main idea is usually done by skimming."
+                    }
+                }
+            ]
+        }
+    ]
+}

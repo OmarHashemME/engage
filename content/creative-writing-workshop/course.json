@@ -1,0 +1,36 @@
+
+{
+    "id": "creative-writing-workshop",
+    "title": "Creative Writing Workshop",
+    "description": "Unlock your creativity and learn to write compelling stories and essays in English.",
+    "iconName": "PencilIcon",
+    "duration": "5 hours",
+    "level": "C1",
+    "details": "Storytelling & Description",
+    "prerequisites": "Advanced Grammar",
+    "tags": ["writing"],
+    "info": "<h3>Course Info</h3><p>Moving beyond basic sentences, this course explores how to paint pictures with words. We focus on the golden rule of writing: Show, Don't Tell.</p>",
+    "modules": [
+        {
+            "id": "m1",
+            "title": "Module 1: Descriptive Writing",
+            "lessons": [
+                {
+                    "id": "l1",
+                    "title": "Show, Don't Tell",
+                    "content": "module1-lesson1.md",
+                    "quiz": {
+                        "question": "Which sentence uses 'Show, Don't Tell'?",
+                        "options": [
+                            {"text": "He was angry.", "isCorrect": false},
+                            {"text": "He slammed the door and clenched his fists.", "isCorrect": true},
+                            {"text": "He felt very mad inside.", "isCorrect": false}
+                        ],
+                        "correctFeedback": "Correct! Slamming a door describes the action of anger without simply stating the emotion.",
+                        "incorrectFeedback": "The other options just state the emotion directly ('telling')."
+                    }
+                }
+            ]
+        }
+    ]
+}

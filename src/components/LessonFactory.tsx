@@ -3,7 +3,7 @@ import type { Lesson } from '../types';
 import StandardLesson from './StandardLesson';
 import SpeakingLesson from './SpeakingLesson';
 
-export interface LessonContentProps {
+export interface LessonFactoryProps {
   lesson: Lesson;
   onComplete: () => void;
   onNext: () => void;
@@ -16,15 +16,12 @@ export interface LessonContentProps {
 // FACTORY COMPONENT
 // This component acts as a dispatcher. It checks the lesson's activity type
 // and renders the appropriate Strategy Component.
-const LessonContent: React.FC<LessonContentProps> = (props) => {
+const LessonFactory: React.FC<LessonFactoryProps> = (props) => {
   const { lesson } = props;
   
   switch (lesson.activityType) {
     case 'speaking':
       return <SpeakingLesson {...props} />;
-    // Future strategies can be added here:
-    // case 'listening': return <ListeningLesson {...props} />;
-    // case 'writing': return <WritingLesson {...props} />;
     case 'reading':
     case 'grammar':
     case 'vocabulary':
@@ -34,4 +31,4 @@ const LessonContent: React.FC<LessonContentProps> = (props) => {
   }
 };
 
-export default LessonContent;
+export default LessonFactory;

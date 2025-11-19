@@ -25,11 +25,38 @@ export type Page =
   | { name: 'pathDetail'; props: { pathId: string } }
   | { name: 'article'; props: { articleId: string } };
 
+const getPageFromUrl = (): Page => {
+  const params = new URLSearchParams(window.location.search);
+  const pageName = params.get('page');
+
+  switch (pageName) {
+    case 'courses': return { name: 'courses' };
+    case 'learningPaths': return { name: 'learningPaths' };
+    case 'community': return { name: 'community' };
+    case 'profile': return { name: 'profile' };
+    case 'course': 
+      const courseId = params.get('courseId');
+      return courseId ? { name: 'course', props: { courseId } } : { name: 'courses' };
+    case 'hub': 
+      const hubId = params.get('hubId');
+      return hubId ? { name: 'hub', props: { hubId } } : { name: 'home' };
+    case 'pathDetail': 
+      const pathId = params.get('pathId');
+      return pathId ? { name: 'pathDetail', props: { pathId } } : { name: 'learningPaths' };
+    case 'article': 
+      const articleId = params.get('articleId');
+      return articleId ? { name: 'article', props: { articleId } } : { name: 'courses' };
+    default: return { name: 'home' };
+  }
+};
+
 const App: React.FC = () => {
-  const [page, setPage] = useState<Page>({ name: 'home' });
+  const [page, setPage] = useState<Page>(getPageFromUrl);
   const [appData, setAppData] = useState<AllData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // historyKey is used to force child components to re-sync with URL parameters on back/forward navigation
+  const [historyKey, setHistoryKey] = useState(0);
 
   useEffect(() => {
     const init = async () => {
@@ -46,9 +73,33 @@ const App: React.FC = () => {
     init();
   }, []);
 
+  useEffect(() => {
+    const handlePopState = () => {
+      setPage(getPageFromUrl());
+      setHistoryKey(prev => prev + 1);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   const navigate = useCallback((newPage: Page) => {
     setPage(newPage);
     window.scrollTo(0, 0);
+
+    const params = new URLSearchParams();
+    if (newPage.name !== 'home') {
+      params.set('page', newPage.name);
+      if ('props' in newPage) {
+        if (newPage.name === 'course') params.set('courseId', newPage.props.courseId);
+        if (newPage.name === 'hub') params.set('hubId', newPage.props.hubId);
+        if (newPage.name === 'pathDetail') params.set('pathId', newPage.props.pathId);
+        if (newPage.name === 'article') params.set('articleId', newPage.props.articleId);
+      }
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+      window.history.pushState({}, '', newUrl);
+    } else {
+      window.history.pushState({}, '', window.location.pathname);
+    }
   }, []);
 
   const renderPage = () => {
@@ -86,13 +137,13 @@ const App: React.FC = () => {
       case 'learningPaths':
         return <LearningPathsPage navigate={navigate} learningPaths={learningPaths} />;
       case 'courses':
-        return <DiscoveryPage navigate={navigate} courses={courses} hubs={hubs} articles={articles} />;
+        return <DiscoveryPage navigate={navigate} courses={courses} hubs={hubs} articles={articles} historyKey={historyKey} />;
       case 'course':
         const course = courses.find(c => c.id === page.props.courseId);
         if (course) {
           return <CourseView course={course} navigate={navigate} />;
         }
-        return <DiscoveryPage navigate={navigate} courses={courses} hubs={hubs} articles={articles} />;
+        return <DiscoveryPage navigate={navigate} courses={courses} hubs={hubs} articles={articles} historyKey={historyKey} />;
       case 'hub':
         const hub = hubs.find(h => h.id === page.props.hubId);
         if (hub) {
@@ -116,7 +167,7 @@ const App: React.FC = () => {
         if (article) {
           return <ArticlePage article={article} navigate={navigate} />;
         }
-        return <DiscoveryPage navigate={navigate} courses={courses} hubs={hubs} articles={articles} />;
+        return <DiscoveryPage navigate={navigate} courses={courses} hubs={hubs} articles={articles} historyKey={historyKey} />;
       default:
         return <HomePage navigate={navigate} courses={courses} hubs={hubs} />;
     }

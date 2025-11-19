@@ -1,0 +1,36 @@
+
+{
+    "id": "active-listening-skills",
+    "title": "Active Listening Skills",
+    "description": "Train your ears to catch every detail and understand the nuances of spoken English.",
+    "iconName": "HeadphonesIcon",
+    "duration": "2.5 hours",
+    "level": "A2",
+    "details": "Focus on Gist & Detail",
+    "prerequisites": "None",
+    "tags": ["listening"],
+    "info": "<h3>Course Info</h3><p>Listening is an active skill. This course helps you stop translating in your head and start understanding English directly, distinguishing between listening for the big picture and listening for specifics.</p>",
+    "modules": [
+        {
+            "id": "m1",
+            "title": "Module 1: Listening Types",
+            "lessons": [
+                {
+                    "id": "l1",
+                    "title": "Listening for Gist",
+                    "content": "module1-lesson1.md",
+                    "quiz": {
+                        "question": "When listening for the gist, what should you focus on?",
+                        "options": [
+                            {"text": "Every single word", "isCorrect": false},
+                            {"text": "The general topic and mood", "isCorrect": true},
+                            {"text": "Translating to your native language", "isCorrect": false}
+                        ],
+                        "correctFeedback": "Exactly! The gist is the 'big picture'. Don't get stuck on words you don't know.",
+                        "incorrectFeedback": "Trying to understand every word often makes you lose the main point."
+                    }
+                }
+            ]
+        }
+    ]
+}

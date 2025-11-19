@@ -1,0 +1,36 @@
+
+{
+    "id": "advanced-grammar-guide",
+    "title": "Advanced Grammar Guide",
+    "description": "Deep dive into complex grammatical structures to refine your accuracy.",
+    "iconName": "AcademicCapIcon",
+    "duration": "6 hours",
+    "level": "C1",
+    "details": "Conditionals & Passive Voice",
+    "prerequisites": "Intermediate Grammar",
+    "tags": ["grammar"],
+    "info": "<h3>Course Info</h3><p>Master the rules that trip up even advanced learners. We look at mixed conditionals, nuanced modal verbs, and the strategic use of the passive voice.</p>",
+    "modules": [
+        {
+            "id": "m1",
+            "title": "Module 1: Complex Structures",
+            "lessons": [
+                {
+                    "id": "l1",
+                    "title": "Mixed Conditionals",
+                    "content": "module1-lesson1.md",
+                    "quiz": {
+                        "question": "Which sentence is a Mixed Conditional?",
+                        "options": [
+                            {"text": "If I had studied, I would pass the test.", "isCorrect": false},
+                            {"text": "If I had studied, I would be happy now.", "isCorrect": true},
+                            {"text": "If I study, I will pass.", "isCorrect": false}
+                        ],
+                        "correctFeedback": "Yes! It mixes a past condition ('If I had studied') with a present result ('I would be happy now').",
+                        "incorrectFeedback": "Look for a sentence that connects the past to the present."
+                    }
+                }
+            ]
+        }
+    ]
+}

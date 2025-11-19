@@ -30,7 +30,7 @@ export interface Module {
   lessons: Lesson[];
 }
 
-export type CourseDifficulty = 'Beginner' | 'Intermediate' | 'Advanced' | 'All Levels';
+export type CEFRLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
 
 export interface Course {
   id:string;
@@ -39,7 +39,7 @@ export interface Course {
   iconName: string; // Changed from icon component to string name
   icon: React.FC<React.SVGProps<SVGSVGElement>>; // Keep this for the final component
   duration: string;
-  difficulty: CourseDifficulty;
+  level: CEFRLevel;
   details: string;
   prerequisites: string;
   modules: Module[];
@@ -76,7 +76,18 @@ export interface Article {
   content: string;
 }
 
+export interface UserSkillLevels {
+  reading?: CEFRLevel;
+  listening?: CEFRLevel;
+  speaking?: CEFRLevel;
+  writing?: CEFRLevel;
+  grammar?: CEFRLevel;
+  vocabulary?: CEFRLevel;
+}
+
 export interface User {
   name: string;
   email: string;
+  generalLevel: CEFRLevel;
+  skillLevels?: UserSkillLevels;
 }
